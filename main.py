@@ -1,17 +1,22 @@
 # python3
-import heapq
+
 
 def parallel_processing(n, m, data):
     output = []
-    processing = [(0, i) for i in range(n)] # seko līdzi, kuri pavedieni apstrādā darbu
+    processing = [0] * n # seko līdzi, kuri pavedieni apstrādā darbu
 
     # TODO: write the function for simulating parallel tasks, 
     # create the output pairs
 
     for i in range(m):
-        thread_time, threat_index = heapq.heappop(processing)
-        output.append((thread_index, thread_time))
-        heapq.heappush(processing, (thread_time + data[i], thread_index))
+        min_thread_time = float('inf')
+        min_thread_index = None
+        for j in range(n):
+            if processing[j] + data[i] < min_thread_time:
+                min_thread_time = processing[j] + data[i]
+                min_thread_index = j
+        output.append((min_thread_index, processing[min_thread_index]))
+        processing[min_thread_index] += data[i]
 
     return output
 
