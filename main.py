@@ -1,6 +1,5 @@
 # python3
 
-
 def parallel_processing(n, m, data):
     output = []
     processing = [0] * n # seko līdzi, kuri pavedieni apstrādā darbu
