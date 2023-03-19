@@ -2,14 +2,19 @@
 
 def parallel_processing(n, m, data):
     output = []
+    processing = [0] * n # seko līdzi, kuri pavedieni apstrādā darbu
     # TODO: write the function for simulating parallel tasks, 
     # create the output pairs
 
     for i in range(m):
-        min_thread_time = min(data)
-        min_thread_index = data.index(min_thread_time)
-    output.append((min_thread_index, min_thread_time))
-    data[min_thread_index] += data[min_thread_index]
+        min_thread_time = float('inf')
+        min_thread_index = None
+        for j in range(n):
+            if processing[j] + data[i] < min_thread_time:
+                min_thread_time = processing[j] + data[i]
+                min_thread_index = j
+        output.append((min_thread_index, processing[min_thread_index]))
+        processing[min_thread_index] += data[i]
 
     return output
 
